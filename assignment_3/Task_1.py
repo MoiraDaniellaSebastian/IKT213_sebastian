@@ -47,15 +47,20 @@ def template_match(image, template):
     cv2.imwrite("shapes_matches.png", img_color)
 
 def resize(image, scale_factor: int, up_or_down: str):
+    resized_image = image
+
     if  up_or_down.lower() == "up":
-       resized_image = cv2.pyrUp(image)
-       print(f"Image upsampled by factor of {scale_factor}")
-       cv2.imwrite("resized_image_up.png", resized_image)
+
+        for _ in range(scale_factor):
+            resized_image = cv2.pyrUp(resized_image)
+            print(f"Image upsampled by factor of {scale_factor}")
+            cv2.imwrite("resized_image_up.png", resized_image)
 
     elif up_or_down.lower() == "down":
-        resized_image = cv2.pyrDown(image)
-        print(f"Image upsampled by factor of {scale_factor}")
-        cv2.imwrite("resized_image_down.png", resized_image)
+        for _ in range(scale_factor):
+            resized_image = cv2.pyrDown(resized_image)
+            print(f"Image downsampled by factor of {scale_factor}")
+            cv2.imwrite("resized_image_down.png", resized_image)
 
     return resized_image
 
